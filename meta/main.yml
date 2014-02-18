@@ -1,28 +1,27 @@
 ---
 galaxy_info:
-  author: your name
-  description: 
-  company: your company (optional)
-  license: license (GPLv2, CC-BY, etc)
-  min_ansible_version: 1.2
+  author: Warren Strange
+  description: Install OpenDJ LDAP server
+  company: ForgeRock
+  license: MIT
+  min_ansible_version: 1.4
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your 
   # platform on this list, let us know and we'll get it added!
   #
-  #platforms:
-  #- name: EL
-  #  versions:
-  #  - all
-  #  - 5
-  #  - 6
-  #- name: GenericUNIX
-  #  versions:
-  #  - all
-  #  - any
-  #- name: Fedora
-  #  versions:
-  #  - all
+  platforms:
+  - name: EL
+    versions:
+    - 5
+    - 6
+  - name: GenericUNIX
+    versions:
+    - all
+    - any
+  - name: Fedora
+    versions:
+    - all
   #  - 16
   #  - 17
   #  - 18
@@ -73,10 +72,10 @@ galaxy_info:
   #  - 11SP1
   #  - 11SP2
   #  - 11SP3
-  #- name: GenericLinux
-  #  versions:
-  #  - all
-  #  - any
+  - name: GenericLinux
+    versions:
+    - all
+    - any
   #- name: Debian
   #  versions:
   #  - all
@@ -88,19 +87,19 @@ galaxy_info:
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
+  categories:
   #- cloud
   #- cloud:ec2
   #- cloud:gce
   #- cloud:rax
   #- database
-  #- database:nosql
+   - database:nosql
   #- database:sql
-  #- development
+   - development
   #- monitoring
   #- networking
   #- packaging
-  #- system
+   - system
   #- web
 dependencies: []
   # List your role dependencies here, one per line. Only
