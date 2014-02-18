@@ -1,11 +1,11 @@
 Role Name
 ========
 
-[Ansible|http://www.ansible.com] role to install OpenDJ LDAP v3 server.
+[Ansible](http://www.ansible.com) role to install [OpenDJ](http://opendj.forgerock.org/) LDAP v3 server.
 
-This role attempts to download the latest nightly build of OpenDJ. If you prefer to install a stable 
-release, or if for some reason the nightly build is not available, you must download a copy of the OpenDJ zip file 
-and update the variable *opendj_url* in defaults/main.yml to a location where the zip file can be downloaded from. Alternatively,
+This role downloads and installs the latest nightly build of OpenDJ. If you prefer to install a stable 
+release, or if for some reason the nightly build is not available, you [must download a copy of the OpenDJ](http://forgerock.com/download-stack/)  zip file 
+and update the variable *opendj_url* in defaults/main.yml to a location where the guest can access the zip file. Alternatively,
 you can copy the OpenDJ zip file to the *download_dir* location. 
 
 Requirements
