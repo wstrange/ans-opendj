@@ -1,0 +1,35 @@
+---
+# This role installs opendj. It will listen on the default ports (389/636 for ssl)
+# Assumes 'java' is installed and on the path
+# TODO: Import sample ldif, schema
+#
+
+- name: Download opendj
+  get_url: url={{opendj_url}} dest={{download_dir}}/{{opendj_zip}}
+  
+- name: create install root
+  file: path={{install_root}} state=directory
+ 
+- name: unpack opendj
+  command: chdir={{install_root}} creates={{install_root}}/opendj unzip {{ download_dir }}/{{ opendj_zip }}
+
+- name: copy opendj props file
+  template: src=opendj.properties dest=/tmp/opendj.properties 
+  
+- name: setup opendj
+  command: creates={{install_root}}/opendj/config {{install_root}}/opendj/setup --cli --propertiesFilePath /tmp/opendj.properties --acceptLicense --no-prompt 
+
+- name: Create rc script
+  command: "{{install_root}}/opendj/bin/create-rc-script -f /etc/init.d/{{opendj_service_name}} -u root"
+  
+- name: Change the ownership on the files so the fr user can execute ldap commands
+  file: path={{install_root}}/opendj state=directory owner={{fr_user}} recurse=yes
+
+- name: Start opendj
+  service: name={{opendj_service_name}} state=started enabled=yes
+  
+- name: Create base suffix for openam config store. This makes it easier if we want to use OpenAM later
+  command: "{{install_root}}/opendj/bin/dsconfig set-backend-prop --backend-name userRoot --add base-dn:dc=openam,dc=forgerock,dc=org
+    --hostname localhost --port 4444 --bindDN cn=\"Directory\ Manager\" --bindPassword {{opendj_password}}
+    --trustAll --noPropertiesFile --no-prompt"
+    

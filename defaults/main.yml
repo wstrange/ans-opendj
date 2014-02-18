@@ -1,0 +1,27 @@
+
+# Default Variables
+# Override these to suit your environment
+
+install_root: /opt
+download_dir: /var/tmp
+# ForgeRock user. The account that will own the files. OpenDJ will be started by root so that 
+# it can open port 389. This user could be different though.
+fr_user: root
+# Where we can grab nightly builds
+jenkins_url: "https://builds.forgerock.org/view/OpenDJ/job/OpenDJ%20-%20trunk%20-%20nightly/lastSuccessfulBuild/artifact/build/package"
+opendj_major: "OpenDJ-2.7.0"
+opendj_zip: "{{opendj_major}}-{{ansible_date_time.year}}{{ansible_date_time.month}}{{ansible_date_time.day}}.zip"
+opendj_url: "{{jenkins_url}}/{{opendj_zip}}"
+
+# Directory Manager password
+opendj_password: password
+# BaseDN
+opendj_basedn: "dc=example,dc=com"
+
+opendj_ldap_port: 389
+opendj_ldaps_port: 636
+opendj_admin_port: 4444
+opendj_jmx_port: 1689
+
+# Name given to the init.d service file. 
+opendj_service_name: opendj

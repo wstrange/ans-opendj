@@ -1,0 +1,38 @@
+#Sample ldif that can be imported to create admins / groups
+# Create group container if it does not exist
+dn: ou=groups,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+# Create ACI on People container that lets users in admins group administer objects under People
+dn: ou=People,dc=example,dc=com
+objectClass: organizationalunit
+objectClass: top
+ou: People
+aci: (targetattr="*")(version 3.0; acl "give admins full rights"; allow(all)
+  groupdn =  "ldap:///cn=admins,ou=groups,dc=example,dc=com";)
+
+# Create Admin user. Give them privs to reset passwords
+dn: uid=admin.0,ou=People,dc=example,dc=com
+objectClass: inetorgperson
+objectClass: organizationalperson
+objectClass: person
+objectClass: top
+cn: Admin User
+sn: Admin 0
+description: This is the description for Admin User
+employeeNumber: 0
+givenName: Admin
+mail: admin.0@maildomain.net
+uid: admin.0
+userPassword: password
+ds-privilege-name: config-read
+ds-privilege-name: password-reset
+
+# Create admins group - put admin user in that group
+dn: cn=admins,ou=groups,dc=example,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: admins
+member: uid=admin.0,ou=People,dc=example,dc=com
